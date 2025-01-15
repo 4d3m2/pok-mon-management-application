@@ -10,6 +10,23 @@ const getAllPokemon = async (req, res) => {
     }
 };
 
+const getPokemonById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const pokemon = await Pokemon.findById(id);
+        if (!pokemon) {
+            return res.status(404).json({ message: 'Pokémon not found' });
+        }
+        res.json({
+            status: 'success',
+            data: pokemon,
+        });
+    }catch (error){
+        console.log(error)
+        res.status(500).json({ message: 'Server Error' });
+    }
+};
+
 const addPokemon = async (req, res) => {
     const { name, type, imageURL, abilities, stats } = req.body;
 
@@ -107,13 +124,24 @@ const searchPokemonByName = async (req, res) => {
     }
 };
 
+const getPokemonTypes = async (req, res) => {
+    try {
+        const types = await Pokemon.distinct('type');
+        res.json({ status: 'success', data: types });
+    } catch (error) {
+        res.status(500).json({ message: 'Server Error' });
+    }
+};
+
 
 module.exports = { 
     getAllPokemon, 
+    getPokemonById,
     addPokemon,
     deletePokemon,
     updatePokemon,
     filterPokemonByType,
     getPokemonSortedByDate,
     searchPokemonByName,
+    getPokemonTypes,
 };

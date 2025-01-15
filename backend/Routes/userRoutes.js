@@ -1,20 +1,19 @@
-const express = require('express');
-
+const express = require("express");
 const {
     createUser,
-    getAllUsers,
-    getUserById,
-    updateUserById,
-    deleteUserById,
-    loginController
-} = require('../Controllers/userController');
-const userRouter = express.Router();
+    loginController,
+    addPokemonToCollection,
+    getUserCollection,
+} = require("../Controllers/userController");
+const authenticate = require("../auth/middleware");
 
-userRouter.post('/register', createUser);
-userRouter.get('/', getAllUsers);
-userRouter.get('/:id', getUserById);
-userRouter.put('/:id', updateUserById);
-userRouter.delete('/:id', deleteUserById);
-userRouter.post('/login', loginController);
+const router = express.Router();
 
-module.exports = userRouter;
+router.post("/register", createUser);
+router.post("/login", loginController);
+
+// Secure routes
+router.post("/collection/add", authenticate, addPokemonToCollection);
+router.get("/collection", authenticate, getUserCollection);
+
+module.exports = router;

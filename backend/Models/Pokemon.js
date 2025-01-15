@@ -4,7 +4,7 @@ const PokemonSchema = new mongoose.Schema({
     name: { type: String, required: true, unique: true },
     type: { type: [String], required: true },
     imageURL: { type: String, required: true },
-    abilities: { type: [String], required: false },
+    abilities: { type: [String] },
     stats: {
         hp: { type: Number, required: false },
         attack: { type: Number, required: false },

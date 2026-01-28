@@ -16,7 +16,7 @@ const UpdatePokemon = () => {
   useEffect(() => {
     const fetchPokemon = async () => {
       try {
-        const response = await api.get(`/pokemon/id/${id}`);
+        const response = await api.get(`/pokemon/${id}`);
         setForm({
           name: response.data.data.name,
           type: Array.isArray(response.data.data.type) ? response.data.data.type.join(', ') : '',

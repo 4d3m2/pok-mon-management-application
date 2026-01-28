@@ -10,7 +10,7 @@ const PokemonDetails = () => {
   useEffect(() => {
     const fetchPokemon = async () => {
       try {
-        const response = await api.get(`/pokemon/id/${id}`);
+        const response = await api.get(`/pokemon/${id}`);
         console.log(response.data); 
         setPokemon(response.data.data); 
       } catch (error) {
